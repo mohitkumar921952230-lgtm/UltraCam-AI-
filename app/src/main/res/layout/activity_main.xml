@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- Live GPU-Graded Viewfinder -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 3x3 Rule of Thirds Grid -->
+    <FrameLayout
+        android:id="@+id/gridOverlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/previewView"
+        app:layout_constraintBottom_toBottomOf="@id/previewView"
+        app:layout_constraintStart_toStartOf="@id/previewView"
+        app:layout_constraintEnd_toEndOf="@id/previewView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="3">
+            <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
+            <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#44FFFFFF" />
+            <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
+            <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#44FFFFFF" />
+            <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="3">
+            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#44FFFFFF" />
+            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#44FFFFFF" />
+            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Front Camera Warm Screen Flash Overlay -->
+    <View
+        android:id="@+id/screenFlashOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF2DC"
+        android:visibility="gone" />
+
+    <!-- Tap-to-Focus Ring -->
+    <View
+        android:id="@+id/focusRing"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Top Quick Settings Bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="38dp"
+        android:paddingBottom="10dp"
+        android:paddingHorizontal="10dp"
+        android:background="#88000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/btnFlash"
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="⚡Auto"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnTimer"
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="⏱ Off"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnRatio"
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="4:3"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnGrid"
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Grid"
+            android:textColor="#AAAAAA"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnStab"
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:text="Gimbal ON"
+            android:textColor="#FFD54F"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- AI Scene + Night Indicator Badge -->
+    <TextView
+        android:id="@+id/tvAiBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="5dp"
+        android:text="AI: iPhone Natural"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Recording Timer & Countdown -->
+    <TextView
+        android:id="@+id/tvStatusCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textSize="44sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Bottom Control Deck -->
+    <LinearLayout
+        android:id="@+id/bottomDeck"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#AA000000"
+        android:paddingTop="8dp"
+        android:paddingBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Pro Manual Controls Panel (Visible in PRO mode) -->
+        <LinearLayout
+            android:id="@+id/proPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="14dp"
+            android:paddingBottom="8dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/tvProValues"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="EV: 0 | Auto ISO/Shutter | Auto Focus"
+                    android:textColor="#FFD54F"
+                    android:textSize="11sp" />
+                <TextView
+                    android:id="@+id/btnProManualToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    android:text="Manual: OFF"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView android:layout_width="42dp" android:layout_height="wrap_content" android:text="ISO" android:textColor="#CCCCCC" android:textSize="11sp" />
+                <SeekBar android:id="@+id/seekIso" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:max="100" android:progress="25" />
+                <TextView android:layout_width="42dp" android:layout_height="wrap_content" android:text="Focus" android:textColor="#CCCCCC" android:textSize="11sp" />
+                <SeekBar android:id="@+id/seekFocus" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:max="100" android:progress="0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView android:layout_width="42dp" android:layout_height="wrap_content" android:text="Shtr" android:textColor="#CCCCCC" android:textSize="11sp" />
+                <SeekBar android:id="@+id/seekShutter" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:max="100" android:progress="50" />
+                <TextView android:layout_width="42dp" android:layout_height="wrap_content" android:text="EV" android:textColor="#CCCCCC" android:textSize="11sp" />
+                <SeekBar android:id="@+id/seekEv" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:max="20" android:progress="10" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Smooth Zoom Bar (Works on BOTH Front & Back Photo/Video!) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="14dp"
+            android:paddingBottom="6dp">
+
+            <TextView android:id="@+id/btnZoom1x" android:layout_width="38dp" android:layout_height="26dp" android:gravity="center" android:text="1x" android:textColor="#FFD54F" android:textSize="12sp" android:textStyle="bold" />
+            <TextView android:id="@+id/btnZoom2x" android:layout_width="38dp" android:layout_height="26dp" android:gravity="center" android:text="2x" android:textColor="#FFFFFF" android:textSize="12sp" />
+            <TextView android:id="@+id/btnZoom3x" android:layout_width="38dp" android:layout_height="26dp" android:gravity="center" android:text="3x" android:textColor="#FFFFFF" android:textSize="12sp" />
+            <TextView android:id="@+id/btnZoom5x" android:layout_width="38dp" android:layout_height="26dp" android:gravity="center" android:text="5x" android:textColor="#FFFFFF" android:textSize="12sp" />
+
+            <SeekBar
+                android:id="@+id/seekZoom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="100"
+                android:progress="0" />
+
+            <TextView
+                android:id="@+id/tvZoomReadout"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="1.0x"
+                android:textColor="#FFD54F"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Real-time 3D LUTs Horizontal Strip -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingHorizontal="10dp"
+            android:paddingBottom="8dp">
+
+            <LinearLayout
+                android:id="@+id/lutContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <!-- Camera Modes Strip -->
+        <LinearLayout
+            android:id="@+id/modeStrip"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView android:id="@+id/modeNight" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="NIGHT" android:textColor="#AAAAAA" android:textSize="12sp" android:textStyle="bold" />
+            <TextView android:id="@+id/modePortrait" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="PORTRAIT" android:textColor="#AAAAAA" android:textSize="12sp" android:textStyle="bold" />
+            <TextView android:id="@+id/modePhoto" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="PHOTO" android:textColor="#FFD54F" android:textSize="13sp" android:textStyle="bold" />
+            <TextView android:id="@+id/modeVideo" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="VIDEO" android:textColor="#AAAAAA" android:textSize="12sp" android:textStyle="bold" />
+            <TextView android:id="@+id/modePro" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="PRO" android:textColor="#AAAAAA" android:textSize="12sp" android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Processing / Record Info -->
+        <TextView
+            android:id="@+id/tvSubStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="4dp"
+            android:text="Ready • Offline AI GPU Active"
+            android:textColor="#BBBBBB"
+            android:textSize="11sp" />
+
+        <!-- Shutter, Gallery, Switch Camera Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingHorizontal="28dp">
+
+            <ImageView
+                android:id="@+id/ivGalleryThumb"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="#222222"
+                android:scaleType="centerCrop" />
+
+            <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
+
+            <FrameLayout
+                android:id="@+id/btnShutter"
+                android:layout_width="76dp"
+                android:layout_height="76dp">
+                <View
+                    android:id="@+id/shutterInner"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+
+            <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/btnSwitchCamera"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:gravity="center"
+                android:text="🔄"
+                android:textSize="24sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

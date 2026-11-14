@@ -58,8 +58,8 @@ dependencies {
     implementation("androidx.camera:camera-extensions:$cameraxVersion")
 
     // Offline High-Speed AI (LiteRT GPU + Face Skin Priority + Portrait Bokeh)
-    implementation("com.google.ai.edge.litert:litert:2.3.0")
-    implementation("com.google.ai.edge.litert:litert-gpu:2.3.0")
+    implementation("com.google.ai.edge.litert:litert:2.1.0")
+    implementation("com.google.ai.edge.litert:litert-gpu:2.1.0")
     implementation("com.google.mlkit:face-detection:16.1.7")
     implementation("com.google.mlkit:segmentation-selfie:16.0.0-beta6")
 }
